@@ -7,11 +7,19 @@ Lita.configure do |config|
 
   # Adapter
   if ENV["RACK_ENV"] == "production"
-    config.robot.adapter = :slack
-    config.adapters.slack.token = ENV["SLACK_LITA_TOKEN"]
-    config.robot.admins = ENV["LITA_ADMINS"].to_s.split ','
-    config.redis[:url] = ENV["REDISTOGO_URL"]
-    config.http.port = ENV["PORT"] || 80
+    #config.robot.adapter = :slack
+    #config.adapters.slack.token = ENV["SLACK_LITA_TOKEN"]
+    #config.robot.admins = ENV["LITA_ADMINS"].to_s.split ','
+    #config.redis[:url] = ENV["REDISTOGO_URL"]
+    #config.http.port = ENV["PORT"] || 80
+
+    config.robot.adapter = :flowdock
+    config.robot.name = 'Lita'
+    config.robot.adapters.flowdock.api_token = 'e2044a3cfd28e19aa8d0981eaab6dae4'
+    config.robot.adapters.flowdock.organization = 'Ge 3'
+    config.robot.adapters.flowdock.flows = ['Main'] #for now maybe add to General later
+    config.redis[:url] = localhost
+
   else
     require 'pry'
     require 'dotenv'
